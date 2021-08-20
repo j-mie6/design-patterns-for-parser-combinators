@@ -1,7 +1,7 @@
 module Main where
 
-import Interpreter
-import Parser
+import Interpreter ( eval )
+import Parser ( parseExpr )
 
 calc :: String -> (String -> Int) -> Int
 calc e = eval (parseExpr e)
@@ -17,3 +17,4 @@ main = do
     ctx "x1" = 7
     ctx "xy" = 2
     ctx "z"  = 42
+    ctx v    = error $ "variable " ++ show v ++ " not in scope"
