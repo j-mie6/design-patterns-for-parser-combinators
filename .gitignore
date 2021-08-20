@@ -1,0 +1,16 @@
+*.hi
+*.o
+*.svg
+/dist-newstyle/
+*.dump*
+*/dump-core/
+.vscode/
+*.hp
+*.prof
+*.verbose-core2core
+log
+.ghc.environment*
+hie.*
+*.c
+*.h
+cabal.project.local

@@ -1,0 +1,3 @@
+packages: .
+optimization:2
+profiling-detail:none
