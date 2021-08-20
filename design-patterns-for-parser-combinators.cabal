@@ -18,7 +18,10 @@ extra-source-files: CHANGELOG.md
 library
     exposed-modules:  Miniparsec,
                       Miniparsec.Impl,
-                      AST,
+                      WeakAST,
+                      StrongAST,
+                      Pretty,
+                      Convert,
                       Interpreter,
                       Parser
 
@@ -42,5 +45,15 @@ test-suite parser-test
                        tasty-hunit,
                        tasty-quickcheck
   main-is:             Main.hs
-  hs-source-dirs:      test
+  hs-source-dirs:      test/parser
+  default-language:    Haskell2010
+
+test-suite convert-test
+  type:                exitcode-stdio-1.0
+  build-depends:       base ^>=4.14.2.0,
+                       calculator-lib,
+                       tasty,
+                       tasty-quickcheck
+  main-is:             Main.hs
+  hs-source-dirs:      test/convert
   default-language:    Haskell2010

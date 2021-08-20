@@ -1,6 +1,6 @@
 module Parser where
 
-import AST
+import WeakAST
 import Miniparsec
 
 {-|

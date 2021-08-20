@@ -1,4 +1,4 @@
-module AST where
+module WeakAST where
 
 data Expr = Add Expr Expr
           | Sub Expr Expr
@@ -6,4 +6,3 @@ data Expr = Add Expr Expr
           | Neg Expr
           | Num Int
           | Var String
-
