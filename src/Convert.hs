@@ -46,7 +46,7 @@ instance Strengthen Strong.Negate where
 
 instance Strengthen Strong.Term where
   strengthen :: Weak.Expr -> Strong.Term
-  strengthen (Weak.Mul x y) = Strong.Mul (strengthen x) (strengthen x)
+  strengthen (Weak.Mul x y) = Strong.Mul (strengthen x) (strengthen y)
   strengthen e              = Strong.OfNegate (strengthen e)
 
 instance Strengthen Strong.Expr where

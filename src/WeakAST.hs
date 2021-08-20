@@ -6,3 +6,4 @@ data Expr = Add Expr Expr
           | Neg Expr
           | Num Int
           | Var String
+          deriving (Eq, Show)
