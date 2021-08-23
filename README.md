@@ -15,6 +15,6 @@ collect our common knowledge, via the discussions and possibly even more example
 
 Without further ado: time to exit the meta...
 
-# Really Cool Calculator Inc
+# Really Cool Calculator Inc 🧮
 Hi! We're a start-up with a vision to make a cool calculator app, written in Haskell,
-for all your basic arithmetic needs. We're an open-source team and happy to take collaborators to help make our dream come true: get everyone using Haskell for calculation. Please see the "Good Issue for Newcomer" issues to help get you started.
+for all your basic arithmetic needs. We're an open-source team and happy to take collaborators to help make our dream come true: get everyone using Haskell for calculation. If you're keen to collaborate, please see the "Good First Issue"s to help get you started.
