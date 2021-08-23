@@ -1,3 +1,4 @@
+{-# LANGUAGE FlexibleInstances #-}
 module Main where
 
 import Arbitrary
@@ -14,4 +15,10 @@ main = defaultMain $ testGroup "Conversions" [
     --testProperty "parse . pretty = id" roundtrip
   ]
 
-roundtrip e = parseExpr (pretty e) === e
+newtype MakeNice a = MakeNice a deriving Eq
+
+instance Pretty e => Show (MakeNice (Either String e)) where
+  show (MakeNice (Right e)) = pretty e
+  show (MakeNice (Left err)) = err
+
+roundtrip e = MakeNice (parseExpr (pretty e)) === MakeNice (Right e)

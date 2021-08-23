@@ -3,8 +3,11 @@ module Main where
 import Interpreter ( eval )
 import Parser ( parseExpr )
 
+fromEither :: (e -> a) -> Either e a -> a
+fromEither err = either err id
+
 calc :: String -> (String -> Int) -> Int
-calc e = eval (parseExpr e)
+calc e = eval (fromEither error (parseExpr e))
 
 main :: IO ()
 main = do
