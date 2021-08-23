@@ -11,7 +11,7 @@ calc e = eval (fromEither error (parseExpr e))
 
 main :: IO ()
 main = do
-  putStrLn "This is the Really Amazing Calculator"
+  putStrLn "This is the Really Cool Calculator (from Really Cool Calculator Inc)"
   putStrLn "Enter an equation, variables x1, xy, and z are available"
   eq <- getLine
   print $ calc eq ctx
