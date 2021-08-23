@@ -1,8 +1,10 @@
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE TypeApplications, StandaloneDeriving, DeriveGeneric #-}
 module Arbitrary where
 
 import qualified WeakAST as Weak
 import qualified StrongAST as Strong
+
+import GHC.Generics
 
 import Convert (strengthen)
 
@@ -33,8 +35,25 @@ instance Arbitrary Weak.Expr where
                      ]
         where
           subexpr = expr (n `div` 2)
+  shrink (Weak.Var v) = []
+  shrink e            = genericShrink e
 
-instance Arbitrary Strong.Expr where arbitrary = fmap strengthen arbitrary
-instance Arbitrary Strong.Term where arbitrary = fmap strengthen arbitrary
-instance Arbitrary Strong.Negate where arbitrary = fmap strengthen arbitrary
-instance Arbitrary Strong.Atom where arbitrary = fmap strengthen arbitrary
+instance Arbitrary Strong.Expr where
+  arbitrary = fmap strengthen arbitrary
+  shrink = genericShrink
+instance Arbitrary Strong.Term where
+  arbitrary = fmap strengthen arbitrary
+  shrink = genericShrink
+instance Arbitrary Strong.Negate where
+  arbitrary = fmap strengthen arbitrary
+  shrink = genericShrink
+instance Arbitrary Strong.Atom where
+  arbitrary = fmap strengthen arbitrary
+  shrink (Strong.Num n) = map Strong.Num (shrink n)
+  shrink (Strong.Var v) = []
+  shrink (Strong.Parens x) = map Strong.Parens (shrink x)
+
+deriving instance Generic Weak.Expr
+deriving instance Generic Strong.Expr
+deriving instance Generic Strong.Term
+deriving instance Generic Strong.Negate
