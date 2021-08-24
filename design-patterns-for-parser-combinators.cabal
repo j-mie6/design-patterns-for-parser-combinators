@@ -25,7 +25,7 @@ library
                       Interpreter,
                       Parser
 
-    build-depends:    base ^>=4.14.2.0,
+    build-depends:    base >=4.13,
                       selective,
                       containers
     hs-source-dirs:   src
@@ -34,12 +34,12 @@ library
 executable calculator
     main-is:          Main.hs
     hs-source-dirs:   main
-    build-depends:    base ^>=4.14.2.0,
+    build-depends:    base >=4.13,
                       calculator-lib
 
 test-suite parser-test
   type:                exitcode-stdio-1.0
-  build-depends:       base ^>=4.14.2.0,
+  build-depends:       base >=4.13,
                        calculator-lib,
                        tasty,
                        tasty-hunit,
@@ -52,7 +52,7 @@ test-suite parser-test
 
 test-suite convert-test
   type:                exitcode-stdio-1.0
-  build-depends:       base ^>=4.14.2.0,
+  build-depends:       base >=4.13,
                        calculator-lib,
                        tasty,
                        tasty-quickcheck
