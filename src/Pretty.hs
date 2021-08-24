@@ -35,4 +35,4 @@ instance Pretty Strong.Atom where
   pretty :: Strong.Atom -> String
   pretty (Strong.Num n)    = show n
   pretty (Strong.Var v)    = v
-  pretty (Strong.Parens x) = "(" ++ pretty x ++ ")"
+  pretty (Strong.Parens x) = pretty x
