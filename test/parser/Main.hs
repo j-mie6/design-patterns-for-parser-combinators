@@ -21,4 +21,4 @@ instance Pretty e => Show (MakeNice (Either String e)) where
   show (MakeNice (Right e)) = pretty e
   show (MakeNice (Left err)) = err
 
-roundtrip e = MakeNice (parseExpr (pretty e)) === MakeNice (Right e)
+roundtrip e = within 100000 $ MakeNice (parseExpr (pretty e)) === MakeNice (Right e)
