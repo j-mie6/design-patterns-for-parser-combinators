@@ -12,7 +12,7 @@ import Parser
 
 main :: IO ()
 main = defaultMain $ testGroup "Conversions" [
-    --testProperty "parse . pretty = id" roundtrip
+    testProperty "parse . pretty = id" roundtrip
   ]
 
 newtype MakeNice a = MakeNice a
