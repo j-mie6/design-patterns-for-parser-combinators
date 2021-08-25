@@ -11,7 +11,7 @@ jobs:
       matrix:
         ghc: ['9.0.1']
     env:
-      CONFIG: "--enable-tests"
+      CONFIG: "--enable-tests --test-options=--quickcheck-replay=461077"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2.3.4
@@ -37,5 +37,5 @@ jobs:
 
       - name: Test
         run: |
-          cabal test parser-test $CONFIG --test-options="--quickcheck-replay=461077"
+          cabal test parser-test $CONFIG
           cabal test convert-test $CONFIG
