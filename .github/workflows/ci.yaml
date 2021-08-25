@@ -37,5 +37,5 @@ jobs:
 
       - name: Test
         run: |
-          cabal test parser-test $CONFIG
+          cabal test parser-test $CONFIG --test-options="--quickcheck-replay=461077"
           cabal test convert-test $CONFIG
