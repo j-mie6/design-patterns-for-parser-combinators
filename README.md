@@ -1,6 +1,7 @@
 # Design Patterns for Parser Combinators
 Welcome to the home for the _talk_ of our 2021 Haskell Symposium paper:
-[Design Patterns for Parser Combinators](https://dl.acm.org/doi/10.1145/3471874.3472984).
+[Design Patterns for Parser Combinators](https://dl.acm.org/doi/10.1145/3471874.3472984) by
+Jamie Willis (j-mie6) and Nicolas Wu (zenzike).
 
 ## What is the paper about?
 This paper is about identifying and documenting design patterns that help to
