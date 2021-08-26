@@ -14,3 +14,5 @@ hie.*
 *.c
 *.h
 cabal.project.local
+jamie-patches/
+nick-patches/
