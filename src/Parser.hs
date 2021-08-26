@@ -34,13 +34,10 @@ addDigit :: Int -> Char -> Int
 addDigit n d = n * 10 + digitToInt d
 
 expr :: Parser Expr
-expr = Add <$> expr <*> (char '+' *> term)
-   <|> Sub <$> expr <*> (char '-' *> term)
-   <|> term
+expr = chainr1 term (Add <$ char '+' <|> Sub <$ char '-')
 
 term :: Parser Expr
-term = Mul <$> term <*> (char '*' *> negate)
-   <|> negate
+term = chainr1 negate (Mul <$ char '*')
 
 negate :: Parser Expr
 negate = Neg <$> (string "negate" *> negate)
