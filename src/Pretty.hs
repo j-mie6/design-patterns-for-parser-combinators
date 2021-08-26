@@ -35,4 +35,6 @@ instance Pretty Strong.Atom where
   pretty :: Strong.Atom -> String
   pretty (Strong.Num n)    = show n
   pretty (Strong.Var v)    = v
-  pretty (Strong.Parens x) = pretty x
+  -- We /need/ brackets here,
+  -- otherwise everything is associative and terms like 7 * (5 + 6) are lost!
+  pretty (Strong.Parens x) = "(" ++ pretty x ++ ")"
