@@ -50,3 +50,12 @@
 
 > pos :: Parser (Int, Int)
 > pos = line <~> col
+
+> chainl1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+> chainl1 p op = p <**> rest
+>   where
+>     rest = flip (.) <$> (flip <$> op <*> p) <*> rest
+>        <|> pure id
+
+> chainr1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+> chainr1 p op = p <**> (flip <$> op <*> chainr1 p op <|> pure id)
