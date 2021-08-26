@@ -1,4 +1,4 @@
-module Lexer (number, ident, fully, lexeme, token) where
+module Lexer (number, ident, fully, lexeme, token, keyword) where
 
 import Miniparsec
 
@@ -35,3 +35,6 @@ lexeme p = p <* whitespace
 
 token :: Parser a -> Parser a
 token = lexeme . try
+
+keyword :: String -> Parser ()
+keyword k = token (string k *> notFollowedBy alphaNum)

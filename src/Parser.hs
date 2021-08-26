@@ -21,7 +21,7 @@ term :: Parser Expr
 term = chainr1 negate (Mul <$ token (char '*'))
 
 negate :: Parser Expr
-negate = Neg <$> (token (string "negate") *> negate)
+negate = Neg <$> (keyword "negate" *> negate)
      <|> atom
 
 atom :: Parser Expr
