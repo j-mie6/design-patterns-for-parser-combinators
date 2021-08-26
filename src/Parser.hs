@@ -2,7 +2,7 @@ module Parser where
 
 import Prelude hiding (negate)
 
-import WeakAST
+import StrongAST
 import Miniparsec
 import Lexer
 
@@ -15,16 +15,15 @@ parseExpr :: String -> Either String Expr
 parseExpr = parse (fully expr)
 
 expr :: Parser Expr
-expr = chainr1 term (Add <$ token (char '+') <|> Sub <$ token (char '-'))
+expr = infixl1 OfTerm term (Add <$ token (char '+') <|> Sub <$ token (char '-'))
 
-term :: Parser Expr
-term = chainr1 negate (Mul <$ token (char '*'))
+term :: Parser Term
+term = infixl1 OfNegate negate (Mul <$ token (char '*'))
 
-negate :: Parser Expr
-negate = Neg <$> (keyword "negate" *> negate)
-     <|> atom
+negate :: Parser Negate
+negate = prefix OfAtom (Neg <$ keyword "negate") atom
 
-atom :: Parser Expr
-atom = token (char '(') *> expr <* token (char ')')
+atom :: Parser Atom
+atom = token (char '(') *> (Parens <$> expr) <* token (char ')')
    <|> Num <$> number
    <|> Var <$> ident
