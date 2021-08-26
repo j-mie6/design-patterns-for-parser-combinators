@@ -50,3 +50,24 @@
 
 > pos :: Parser (Int, Int)
 > pos = line <~> col
+
+> infixl1 :: (a -> b) -> Parser a -> Parser (b -> a -> b) -> Parser b
+> infixl1 wrap p op = postfix wrap p (flip <$> op <*> p)
+
+> infixr1 :: (a -> b) -> Parser a -> Parser (a -> b -> b) -> Parser b
+> infixr1 wrap p op = p <**> (flip <$> op <*> infixr1 wrap p op <|> pure wrap)
+
+> prefix :: (a -> b) -> Parser (b -> b) -> Parser a -> Parser b
+> prefix wrap op p = op <*> prefix wrap op p <|> wrap <$> p
+
+> postfix :: (a -> b) -> Parser a -> Parser (b -> b) -> Parser b
+> postfix wrap p op = (wrap <$> p) <**> rest
+>   where
+>     rest = flip (.) <$> op <*> rest
+>        <|> pure id
+
+> chainl1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+> chainl1 = infixl1 id
+
+> chainr1 :: Parser a -> Parser (a -> a -> a) -> Parser a
+> chainr1 = infixr1 id

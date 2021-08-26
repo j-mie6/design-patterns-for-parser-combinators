@@ -1,13 +1,30 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Parser where
 
 import Prelude hiding (negate)
 
-import WeakAST
+import StrongAST
 import Miniparsec
+import Lexer
+
+import Data.Char (digitToInt)
 
 {-|
 This function should turn a string into an expression.
 -}
--- Should be a good issue for a newcomer?
 parseExpr :: String -> Either String Expr
-parseExpr = undefined
+parseExpr = parse (fully expr)
+
+expr :: Parser Expr
+expr = infixl1 OfTerm term (Add <$ "+" <|> Sub <$ "-")
+
+term :: Parser Term
+term = infixl1 OfNegate negate (Mul <$ "*")
+
+negate :: Parser Negate
+negate = prefix OfAtom (Neg <$ "negate") atom
+
+atom :: Parser Atom
+atom = "(" *> (Parens <$> expr) <* ")"
+   <|> Num <$> number
+   <|> Var <$> ident
