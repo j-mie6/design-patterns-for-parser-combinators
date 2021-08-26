@@ -1,8 +1,10 @@
+{-# LANGUAGE TypeFamilies #-}
 module Lexer (number, ident, fully, lexeme, token, keyword) where
 
 import Miniparsec
 
 import Data.Char (digitToInt, isSpace)
+import Data.String (IsString(fromString))
 
 alpha :: Parser Char
 alpha = oneOf (['a' .. 'z'] ++ ['A' .. 'Z'])
@@ -38,3 +40,11 @@ token = lexeme . try
 
 keyword :: String -> Parser ()
 keyword k = token (string k *> notFollowedBy alphaNum)
+
+keys :: [String]
+keys = ["negate"]
+
+instance u ~ () => IsString (Parser u) where
+  fromString str
+    | str `elem` keys = keyword str
+    | otherwise       = void (token (string str))

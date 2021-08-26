@@ -1,3 +1,4 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Parser where
 
 import Prelude hiding (negate)
@@ -15,15 +16,15 @@ parseExpr :: String -> Either String Expr
 parseExpr = parse (fully expr)
 
 expr :: Parser Expr
-expr = infixl1 OfTerm term (Add <$ token (char '+') <|> Sub <$ token (char '-'))
+expr = infixl1 OfTerm term (Add <$ "+" <|> Sub <$ "-")
 
 term :: Parser Term
-term = infixl1 OfNegate negate (Mul <$ token (char '*'))
+term = infixl1 OfNegate negate (Mul <$ "*")
 
 negate :: Parser Negate
-negate = prefix OfAtom (Neg <$ keyword "negate") atom
+negate = prefix OfAtom (Neg <$ "negate") atom
 
 atom :: Parser Atom
-atom = token (char '(') *> (Parens <$> expr) <* token (char ')')
+atom = "(" *> (Parens <$> expr) <* ")"
    <|> Num <$> number
    <|> Var <$> ident
