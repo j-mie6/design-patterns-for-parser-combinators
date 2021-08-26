@@ -23,7 +23,8 @@ library
                       Pretty,
                       Convert,
                       Interpreter,
-                      Parser
+                      Parser,
+                      Lexer
 
     build-depends:    base >=4.13,
                       selective,
